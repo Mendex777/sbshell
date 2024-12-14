@@ -10,7 +10,7 @@ SCRIPT_DIR="/etc/sing-box/scripts"
 TEMP_DIR="/tmp/sing-box"
 
 # Базовый URL для скриптов
-BASE_URL="https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/debian"
+BASE_URL="https://raw.githubusercontent.com/Mendex777/sbshell/refs/heads/master/debian"
 
 # URL для скачивания меню скрипта
 MENU_SCRIPT_URL="$BASE_URL/menu.sh"

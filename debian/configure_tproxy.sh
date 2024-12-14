@@ -1,42 +1,42 @@
 #!/bin/sh
 
-# 配置参数
-TPROXY_PORT=7895  # 与 sing-box 中定义的一致
-ROUTING_MARK=666  # 与 sing-box 中定义的一致
+# Конфигурационные параметры
+TPROXY_PORT=7895  # Соответствует значению, определенному в sing-box
+ROUTING_MARK=666  # Соответствует значению, определенному в sing-box
 PROXY_FWMARK=1
 PROXY_ROUTE_TABLE=100
 INTERFACE=$(ip route show default | awk '/default/ {print $5}')
 
-# 保留 IP 地址集合
+# Резервный набор IP-адресов
 ReservedIP4='{ 127.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 198.18.0.0/15, 198.51.100.0/24, 192.88.99.0/24, 192.168.0.0/16, 203.0.113.0/24, 224.0.0.0/4, 240.0.0.0/4, 255.255.255.255/32 }'
-CustomBypassIP='{ 192.168.0.0/16 }'  # 自定义绕过的 IP 地址集合
+CustomBypassIP='{ 192.168.0.0/16 }'  # Пользовательский набор IP-адресов для обхода
 
-# 读取当前模式
+# Чтение текущего режима
 MODE=$(grep -oP '(?<=^MODE=).*' /etc/sing-box/mode.conf)
 
-# 清理特定防火墙规则
+# Очистка специфических правил брандмауэра
 clearSingboxRules() {
     nft list table inet sing-box >/dev/null 2>&1 && nft delete table inet sing-box
     ip rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null
     ip route del local default dev "$INTERFACE" table $PROXY_ROUTE_TABLE 2>/dev/null
-    echo "清理 sing-box 相关的防火墙规则"
+    echo "Очистка правил брандмауэра, связанных с sing-box"
 }
 
-# 仅在 TProxy 模式下应用防火墙规则
+# Применение правил брандмауэра только в режиме TProxy
 if [ "$MODE" = "TProxy" ]; then
-    echo "应用 TProxy 模式下的防火墙规则..."
+    echo "Применение правил брандмауэра в режиме TProxy..."
 
     clearSingboxRules
 
-    # 设置 IP 规则和路由
+    # Установка IP-правил и маршрутов
     ip -f inet rule add fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE
     ip -f inet route add local default dev "$INTERFACE" table $PROXY_ROUTE_TABLE
     sysctl -w net.ipv4.ip_forward=1 > /dev/null
 
-    # 确保目录存在
+    # Убедиться, что директория существует
     sudo mkdir -p /etc/sing-box/nft
 
-    # 设置 TProxy 模式下的 nftables 规则和 IP 路由
+    # Установка правил nftables и IP-маршрутов в режиме TProxy
     cat > /etc/sing-box/nft/nftables.conf <<EOF
 table inet sing-box {
     set RESERVED_IPSET {
@@ -49,67 +49,67 @@ table inet sing-box {
     chain prerouting_tproxy {
         type filter hook prerouting priority mangle; policy accept;
 
-        # DNS 请求重定向到本地 TProxy 端口
+        # Перенаправление DNS-запросов на локальный порт TProxy
         meta l4proto { tcp, udp } th dport 53 tproxy to :$TPROXY_PORT accept
 
-        # 自定义绕过地址
+        # Пользовательский обход адресов
         ip daddr $CustomBypassIP accept
 
-        # 拒绝访问本地 TProxy 端口
+        # Отклонение доступа к локальному порту TProxy
         fib daddr type local meta l4proto { tcp, udp } th dport $TPROXY_PORT reject with icmpx type host-unreachable
 
-        # 本地地址绕过
+        # Обход локальных адресов
         fib daddr type local accept
 
-        # 保留地址绕过
+        # Обход резервных адресов
         ip daddr @RESERVED_IPSET accept
 
-        # 优化已建立的 TCP 连接
+        # Оптимизация установленных TCP-соединений
         meta l4proto tcp socket transparent 1 meta mark set $PROXY_FWMARK accept
 
-        # 重定向剩余流量到 TProxy 端口并设置标记
+        # Перенаправление оставшегося трафика на порт TProxy и установка метки
         meta l4proto { tcp, udp } tproxy to :$TPROXY_PORT meta mark set $PROXY_FWMARK
     }
 
     chain output_tproxy {
         type route hook output priority mangle; policy accept;
 
-        # 放行本地回环接口流量
+        # Пропуск трафика локального интерфейса
         meta oifname "lo" accept
 
-        # 本地 sing-box 发出的流量绕过
+        # Обход трафика, отправленного локальным sing-box
         meta mark $ROUTING_MARK accept
 
-        # DNS 请求标记
+        # Метка DNS-запросов
         meta l4proto { tcp, udp } th dport 53 meta mark set $PROXY_FWMARK
 
-        # 绕过 NBNS 流量
+        # Обход трафика NBNS
         udp dport { netbios-ns, netbios-dgm, netbios-ssn } accept
 
-        # 自定义绕过地址
+        # Пользовательский обход адресов
         ip daddr $CustomBypassIP accept
 
-        # 本地地址绕过
+        # Обход локальных адресов
         fib daddr type local accept
 
-        # 保留地址绕过
+        # Обход резервных адресов
         ip daddr @RESERVED_IPSET accept
 
-        # 标记并重定向剩余流量
+        # Метка и перенаправление оставшегося трафика
         meta l4proto { tcp, udp } meta mark set $PROXY_FWMARK
     }
 }
 EOF
 
-    # 应用防火墙规则和 IP 路由
+    # Применение правил брандмауэра и IP-маршрутов
     nft -f /etc/sing-box/nft/nftables.conf
     ip rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE
     ip route add local default dev lo table $PROXY_ROUTE_TABLE
 
-    # 持久化防火墙规则
+    # Сохранение правил брандмауэра
     nft list ruleset > /etc/nftables.conf
 
-    echo "TProxy 模式的防火墙规则已应用。"
+    echo "Правила брандмауэра в режиме TProxy применены."
 else
-    echo "当前模式为 TUN 模式，不需要应用防火墙规则。" >/dev/null 2>&1
+    echo "Текущий режим - TUN, правила брандмауэра не требуются." >/dev/null 2>&1
 fi

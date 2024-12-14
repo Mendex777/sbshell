@@ -1,56 +1,56 @@
 #!/bin/bash
 
 #################################################
-# 描述: Debian/Ubuntu/Armbian 官方sing-box 全自动脚本
-# 版本: 1.2.4
-# 作者: Youtube: 七尺宇
+# Описание: Скрипт для автоматизации установки и настройки sing-box на Debian/Ubuntu/Armbian
+# Версия: 1.2.4
+# Автор: Youtube: 七尺宇
 #################################################
 
-# 定义颜色
+# Определить цвета
 CYAN='\033[0;36m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
-NC='\033[0m' # 无颜色
+NC='\033[0m' # Без цвета
 
-# 脚本下载目录和初始化标志文件
+# Директория для скриптов и файл инициализации
 SCRIPT_DIR="/etc/sing-box/scripts"
 INITIALIZED_FILE="$SCRIPT_DIR/.initialized"
 
-# 确保脚本目录存在并设置权限
+# Убедиться, что директория для скриптов существует и установить права
 sudo mkdir -p "$SCRIPT_DIR"
 sudo chown "$(whoami)":"$(whoami)" "$SCRIPT_DIR"
 
-# 脚本的URL基础路径
+# Базовый URL для скриптов
 BASE_URL="https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/debian"
 
-# 脚本列表
+# Список скриптов
 SCRIPTS=(
-    "check_environment.sh"     # 检查系统环境
-    "set_network.sh"           # 配置网络设置
-    "check_update.sh"          # 检查可用更新
-    "install_singbox.sh"       # 安装 Sing-box
-    "manual_input.sh"          # 手动输入配置
-    "manual_update.sh"         # 手动更新配置
-    "auto_update.sh"           # 自动更新配置
-    "configure_tproxy.sh"      # 配置 TProxy 模式
-    "configure_tun.sh"         # 配置 TUN 模式
-    "start_singbox.sh"         # 手动启动 Sing-box
-    "stop_singbox.sh"          # 手动停止 Sing-box
-    "clean_nft.sh"             # 清理 nftables 规则
-    "set_defaults.sh"          # 设置默认配置
-    "commands.sh"              # 常用命令
-    "switch_mode.sh"           # 切换代理模式
-    "manage_autostart.sh"      # 设置自启动
-    "check_config.sh"          # 检查配置文件
-    "update_scripts.sh"        # 更新脚本
-    "menu.sh"                  # 主菜单
+    "check_environment.sh"     # Проверка системной среды
+    "set_network.sh"           # Настройка сети
+    "check_update.sh"          # Проверка доступных обновлений
+    "install_singbox.sh"       # Установка Sing-box
+    "manual_input.sh"          # Ручной ввод конфигурации
+    "manual_update.sh"         # Ручное обновление конфигурации
+    "auto_update.sh"           # Автоматическое обновление конфигурации
+    "configure_tproxy.sh"      # Настройка режима TProxy
+    "configure_tun.sh"         # Настройка режима TUN
+    "start_singbox.sh"         # Ручной запуск Sing-box
+    "stop_singbox.sh"          # Ручная остановка Sing-box
+    "clean_nft.sh"             # Очистка правил nftables
+    "set_defaults.sh"          # Установка конфигурации по умолчанию
+    "commands.sh"              # Часто используемые команды
+    "switch_mode.sh"           # Переключение режима прокси
+    "manage_autostart.sh"      # Настройка автозапуска
+    "check_config.sh"          # Проверка конфигурационного файла
+    "update_scripts.sh"        # Обновление скриптов
+    "menu.sh"                  # Главное меню
 )
 
-# 下载并设置单个脚本，带重试和日志记录逻辑
+# Скачать и настроить один скрипт с логикой повторных попыток и ведения журнала
 download_script() {
     local SCRIPT="$1"
-    local RETRIES=5  # 增加重试次数
+    local RETRIES=5  # Увеличить количество попыток
     local RETRY_DELAY=5
 
     for ((i=1; i<=RETRIES; i++)); do
@@ -58,16 +58,16 @@ download_script() {
             chmod +x "$SCRIPT_DIR/$SCRIPT"
             return 0
         else
-            echo -e "${YELLOW}下载 $SCRIPT 失败，重试 $i/${RETRIES}...${NC}"
+            echo -e "${YELLOW}Скачивание $SCRIPT не удалось, повторная попытка $i/${RETRIES}...${NC}"
             sleep "$RETRY_DELAY"
         fi
     done
 
-    echo -e "${RED}下载 $SCRIPT 失败，请检查网络连接。${NC}"
+    echo -e "${RED}Скачивание $SCRIPT не удалось, проверьте соединение с интернетом.${NC}"
     return 1
 }
 
-# 并行下载脚本
+# Параллельное скачивание скриптов
 parallel_download_scripts() {
     local pids=()
     for SCRIPT in "${SCRIPTS[@]}"; do
@@ -80,7 +80,7 @@ parallel_download_scripts() {
     done
 }
 
-# 检查脚本完整性并下载缺失的脚本
+# Проверка целостности скриптов и скачивание отсутствующих скриптов
 check_and_download_scripts() {
     local missing_scripts=()
     for SCRIPT in "${SCRIPTS[@]}"; do
@@ -90,37 +90,37 @@ check_and_download_scripts() {
     done
 
     if [ ${#missing_scripts[@]} -ne 0 ]; then
-        echo -e "${CYAN}正在下载脚本，请耐心等待...${NC}"
+        echo -e "${CYAN}Скачивание скриптов, пожалуйста, подождите...${NC}"
         for SCRIPT in "${missing_scripts[@]}"; do
             download_script "$SCRIPT" || {
-                echo -e "${RED}下载 $SCRIPT 失败，是否重试？(y/n): ${NC}"
+                echo -e "${RED}Скачивание $SCRIPT не удалось, повторить попытку? (y/n): ${NC}"
                 read -r retry_choice
                 if [[ "$retry_choice" =~ ^[Yy]$ ]]; then
                     download_script "$SCRIPT"
                 else
-                    echo -e "${RED}跳过 $SCRIPT 下载。${NC}"
+                    echo -e "${RED}Пропуск скачивания $SCRIPT.${NC}"
                 fi
             }
         done
     fi
 }
 
-# 初始化操作
+# Инициализация
 initialize() {
-    # 检查是否存在旧脚本
+    # Проверка наличия старых скриптов
     if ls "$SCRIPT_DIR"/*.sh 1> /dev/null 2>&1; then
         find "$SCRIPT_DIR" -type f -name "*.sh" ! -name "menu.sh" -exec rm -f {} \;
         rm -f "$INITIALIZED_FILE"
     fi
 
-    # 重新下载脚本
+    # Перезагрузка скриптов
     parallel_download_scripts
-    # 进行首次运行的其他初始化操作
+    # Другие действия при первом запуске
     auto_setup
     touch "$INITIALIZED_FILE"
 }
 
-# 自动引导设置
+# Автоматическая настройка
 auto_setup() {
     systemctl is-active --quiet sing-box && sudo systemctl stop sing-box
     bash "$SCRIPT_DIR/check_environment.sh"
@@ -130,49 +130,49 @@ auto_setup() {
     bash "$SCRIPT_DIR/start_singbox.sh"
 }
 
-# 检查是否需要初始化
+# Проверка необходимости инициализации
 if [ ! -f "$INITIALIZED_FILE" ]; then
-    echo -e "${CYAN}进入初始化引导设置,回车继续输入skip跳过${NC}"
+    echo -e "${CYAN}Вход в режим инициализации, нажмите Enter для продолжения или введите skip для пропуска${NC}"
     read -r init_choice
     if [[ "$init_choice" =~ ^[Ss]kip$ ]]; then
-        echo -e "${CYAN}跳过初始化引导，直接进入菜单...${NC}"
+        echo -e "${CYAN}Пропуск инициализации, переход в меню...${NC}"
     else
         initialize
     fi
 fi
 
-# 添加别名到 .bashrc，如果已存在则不再添加
+# Добавление псевдонима в .bashrc, если он уже существует, не добавлять
 if ! grep -q "alias sb=" ~/.bashrc; then
     echo "alias sb='bash $SCRIPT_DIR/menu.sh menu'" >> ~/.bashrc
 fi
 
-# 创建快捷脚本
+# Создание ярлыка скрипта
 if [ ! -f /usr/local/bin/sb ]; then
     echo -e '#!/bin/bash\nbash /etc/sing-box/scripts/menu.sh menu' | sudo tee /usr/local/bin/sb >/dev/null
     sudo chmod +x /usr/local/bin/sb
 fi
 
-# 菜单显示
+# Отображение меню
 show_menu() {
-    echo -e "${CYAN}=========== Sbshell 管理菜单 ===========${NC}"
-    echo -e "${GREEN}1. Tproxy/Tun模式切换${NC}"
-    echo -e "${GREEN}2. 手动更新配置文件${NC}"
-    echo -e "${GREEN}3. 自动更新配置文件${NC}"
-    echo -e "${GREEN}4. 手动启动 sing-box${NC}"
-    echo -e "${GREEN}5. 手动停止 sing-box${NC}"
-    echo -e "${GREEN}6. 安装/更新 sing-box${NC}"
-    echo -e "${GREEN}7. 默认参数设置${NC}"
-    echo -e "${GREEN}8. 设置自启动${NC}"
-    echo -e "${GREEN}9. 网络设置(只支持debian)${NC}"
-    echo -e "${GREEN}10. 常用命令${NC}"
-    echo -e "${GREEN}11. 更新脚本${NC}"
-    echo -e "${GREEN}0. 退出${NC}"
+    echo -e "${CYAN}=========== Меню управления Sbshell ===========${NC}"
+    echo -e "${GREEN}1. Переключение режима Tproxy/Tun${NC}"
+    echo -e "${GREEN}2. Ручное обновление конфигурационного файла${NC}"
+    echo -e "${GREEN}3. Автоматическое обновление конфигурационного файла${NC}"
+    echo -e "${GREEN}4. Ручной запуск sing-box${NC}"
+    echo -e "${GREEN}5. Ручная остановка sing-box${NC}"
+    echo -e "${GREEN}6. Установка/обновление sing-box${NC}"
+    echo -e "${GREEN}7. Установка параметров по умолчанию${NC}"
+    echo -e "${GREEN}8. Настройка автозапуска${NC}"
+    echo -e "${GREEN}9. Настройка сети (только для debian)${NC}"
+    echo -e "${GREEN}10. Часто используемые команды${NC}"
+    echo -e "${GREEN}11. Обновление скриптов${NC}"
+    echo -e "${GREEN}0. Выход${NC}"
     echo -e "${CYAN}=======================================${NC}"
 }
 
-# 处理用户选择
+# Обработка выбора пользователя
 handle_choice() {
-    read -rp "请选择操作: " choice
+    read -rp "Пожалуйста, выберите действие: " choice
     case $choice in
         1)
             bash "$SCRIPT_DIR/switch_mode.sh"
@@ -217,12 +217,12 @@ handle_choice() {
             exit 0
             ;;
         *)
-            echo -e "${RED}无效的选择${NC}"
+            echo -e "${RED}Неверный выбор${NC}"
             ;;
     esac
 }
 
-# 主循环
+# Основной цикл
 while true; do
     show_menu
     handle_choice

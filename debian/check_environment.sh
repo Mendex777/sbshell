@@ -1,28 +1,28 @@
 #!/bin/bash
 
-# 确保以root权限运行
+# Убедиться, что скрипт запущен с правами root
 if [ "$(id -u)" != "0" ]; then
-    echo "错误: 此脚本需要 root 权限"
+    echo "Ошибка: Этот скрипт требует прав root"
     exit 1
 fi
 
-# 检查sing-box是否已安装
+# Проверить, установлен ли sing-box
 if command -v sing-box &> /dev/null; then
     current_version=$(sing-box version | grep 'sing-box version' | awk '{print $3}')
-    echo "sing-box 已安装，版本：$current_version"
+    echo "sing-box установлен, версия: $current_version"
 else
-    echo "sing-box 未安装"
+    echo "sing-box не установлен"
 fi
 
-# 检查并开启IP转发
+# Проверить и включить IP-пересылку
 ipv4_forward=$(sysctl net.ipv4.ip_forward | awk '{print $3}')
 ipv6_forward=$(sysctl net.ipv6.conf.all.forwarding | awk '{print $3}')
 
 if [ "$ipv4_forward" -eq 1 ] && [ "$ipv6_forward" -eq 1 ]; then
-    echo "IP 转发已开启"
+    echo "IP-пересылка уже включена"
 else
-    echo "开启 IP 转发..."
+    echo "Включение IP-пересылки..."
     sudo sed -i '/net.ipv4.ip_forward/s/^#//;/net.ipv6.conf.all.forwarding/s/^#//' /etc/sysctl.conf
     sudo sysctl -p
-    echo "IP 转发已成功开启"
+    echo "IP-пересылка успешно включена"
 fi

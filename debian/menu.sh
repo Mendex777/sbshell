@@ -22,7 +22,7 @@ sudo mkdir -p "$SCRIPT_DIR"
 sudo chown "$(whoami)":"$(whoami)" "$SCRIPT_DIR"
 
 # Базовый URL для скриптов
-BASE_URL="https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/debian"
+BASE_URL="https://raw.githubusercontent.com/Mendex777/sbshell/refs/heads/master/debian"
 
 # Список скриптов
 SCRIPTS=(

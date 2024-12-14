@@ -28,12 +28,14 @@ bash <(curl -sL https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbsh
 ### Тестовая версия:
 tproxy:
 https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tproxy_dev.json
+
 tun:
 https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tun_dev.json
 
 ### Стабильная версия:
 tproxy:
 https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tproxy.json
+
 tun:
 https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tun.json
 

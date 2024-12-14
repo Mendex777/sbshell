@@ -18,7 +18,7 @@ Sbshell — это вспомогательный скрипт для офици
 
 ## Однокликовый скрипт:
 ```
-bash <(curl -sL https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/sbshall.sh)
+bash <(curl -sL https://raw.githubusercontent.com/Mendex777/sbshell/refs/heads/master/sbshall.sh)
 ```
 (После завершения инициализации введите "**sb**" для входа в меню)
 В настоящее время поддерживаются системы Debian/Ubuntu/Armbian. В будущем возможна поддержка OpenWRT.

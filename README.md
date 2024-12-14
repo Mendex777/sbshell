@@ -1,48 +1,48 @@
-# Sbshell
+ # Sbshell
 
-Sbshell 是一款针对 官方sing-box 的辅助运行脚本，旨在解决官方sing-box的使用不便：
+Sbshell — это вспомогательный скрипт для официального sing-box, предназначенный для решения проблем с использованием официального sing-box:
 
-- **辅助运行**：保持 sing-box 以官方裸核形式运行，追求极致精简与性能。
-- **双模支持**：兼容 TUN 和 TProxy 模式，可随时一键切换，灵活适应不同需求。
-- **版本管理**：支持一键切换稳定版与测试版内核，检测并更新至最新版本，操作简单高效。
-- **灵活配置**：支持手动输入后端地址、订阅链接、配置文件链接，并可设置默认值，提升使用效率。
-- **订阅管理**：支持手动更新、定时自动更新，确保订阅和配置始终保持最新。
-- **启动控制**：支持手动启动、停止和开机自启管理，操作直观。
-- **网络配置**：内置网络配置模块，可快速修改系统 IP、网关和 DNS，自动提示是否需要调整。
-- **便捷命令**：集成常用命令，避免手动查找与复制的繁琐。
-- **在线更新**：支持脚本在线更新，始终保持最新版本。
+- **Вспомогательное выполнение**: поддерживает работу sing-box в официальном режиме с минимальным ядром, обеспечивая максимальную простоту и производительность.
+- **Поддержка двух режимов**: совместим с режимами TUN и TProxy, позволяет легко переключаться между ними, гибко адаптируясь к различным требованиям.
+- **Управление версиями**: поддержка однокликового переключения между стабильной и тестовой версиями ядра, обнаружение и обновление до последней версии, простая и эффективная работа.
+- **Гибкая конфигурация**: поддержка ввода адресов бэкенда, ссылок на подписки и ссылок на конфигурационные файлы вручную, а также установка значений по умолчанию, повышающих эффективность использования.
+- **Управление подписками**: поддержка ручного обновления и автоматического обновления по расписанию, обеспечивая актуальность подписок и конфигураций.
+- **Контроль запуска**: поддержка ручного запуска, остановки и управления автозапуском, интуитивно понятные операции.
+- **Сетевые настройки**: встроенный модуль сетевых настроек, позволяющий быстро изменять системные IP, шлюзы и DNS, с автоматическими подсказками о необходимости настройки.
+- **Удобные команды**: интеграция часто используемых команд, избегая необходимости ручного поиска и копирования.
+- **Онлайн-обновления**: поддержка онлайн-обновлений скрипта, обеспечивая актуальность версии.
 
-## 设备支持：
+## Поддержка устройств:
 
-目前支持系统为deiban/ubuntu/armbian, 后续有时间可能会适配openwrt。
+В настоящее время поддерживаются системы Debian/Ubuntu/Armbian. В будущем возможна адаптация для OpenWRT.
 
-## 一键脚本：
+## Однокликовый скрипт:
 ```
 bash <(curl -sL https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/sbshall.sh)
 ```
-（初始化运行结束，输入“**sb**”进入菜单）
-目前支持系统为deiban/ubuntu/armbian, 后续有时间可能会去支持openwrt 。
+(После завершения инициализации введите "**sb**" для входа в меню)
+В настоящее время поддерживаются системы Debian/Ubuntu/Armbian. В будущем возможна поддержка OpenWRT.
 
-## 适配配置文件：
+## Конфигурационные файлы:
 
-### 测试版：  
-tproxy：
-https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tproxy_dev.json    
-tun：
-https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tun_dev.json  
+### Тестовая версия:
+tproxy:
+https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tproxy_dev.json
+tun:
+https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tun_dev.json
 
-### 稳定版：  
-tproxy：
-https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tproxy.json    
-tun：
-https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tun.json  
+### Стабильная версия:
+tproxy:
+https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tproxy.json
+tun:
+https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/config_template/config_tun.json
 
-## Youtube视频教程：
+## Видеоуроки на YouTube:
 https://youtu.be/aoSHzRitvC8
 
-## 电报交流群：
+## Телеграм-чат:
 https://t.me/qichiyuchat
 
-## 其他问题：
+## Другие вопросы:
 
-**请查看[wiki](https://github.com/qichiyuhub/sbshell/wiki)**
+Пожалуйста, обратитесь к [wiki](https://github.com/qichiyuhub/sbshell/wiki)

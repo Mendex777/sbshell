@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Определить URL для загрузки основного скрипта
-MAIN_SCRIPT_URL="https://ghp.ci/https://raw.githubusercontent.com/qichiyuhub/sbshell/refs/heads/master/debian/menu.sh"
+MAIN_SCRIPT_URL="https://raw.githubusercontent.com/Mendex777/sbshell/refs/heads/master/debian/menu.sh"
 
 # Директория для загрузки скрипта
 SCRIPT_DIR="/etc/sing-box/scripts"

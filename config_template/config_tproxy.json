@@ -60,6 +60,7 @@
     { "tag": "🚀 Node Selection", "type": "selector", "outbounds": ["🔯 Hong Kong Auto", "🇭🇰 Hong Kong Node", "🇯🇵 Japan Node", "🇺🇸 US Node", "🐸 Manual Switch", "♻️ Auto Selection", "🎯 Global Direct"] },
     { "tag": "📹 YouTube", "type": "selector", "outbounds": ["🚀 Node Selection", "♻️ Auto Selection", "🔯 Hong Kong Auto", "🇭🇰 Hong Kong Node", "🇯🇵 Japan Node", "🇺🇸 US Node", "🐸 Manual Switch"] },
     { "tag": "🤖 OpenAI", "type": "selector", "outbounds": ["🚀 Node Selection", "♻️ Auto Selection", "🔯 Hong Kong Auto", "🇭🇰 Hong Kong Node", "🇯🇵 Japan Node", "🇺🇸 US Node", "🐸 Manual Switch"] },
+    { "tag": "🤖 meta", "type": "selector", "outbounds": ["🚀 Node Selection", "♻️ Auto Selection", "🔯 Hong Kong Auto", "🇭🇰 Hong Kong Node", "🇯🇵 Japan Node", "🇺🇸 US Node", "🐸 Manual Switch"] },
     { "tag": "🍀 Google", "type": "selector", "outbounds": ["🚀 Node Selection", "♻️ Auto Selection", "🔯 Hong Kong Auto", "🇭🇰 Hong Kong Node", "🇯🇵 Japan Node", "🇺🇸 US Node", "🐸 Manual Switch"] },
     { "tag": "👨‍💻 GitHub", "type": "selector", "outbounds": ["🚀 Node Selection", "♻️ Auto Selection", "🔯 Hong Kong Auto", "🇭🇰 Hong Kong Node", "🇯🇵 Japan Node", "🇺🇸 US Node", "🐸 Manual Switch"] },
     { "tag": "🪟 Microsoft", "type": "selector", "outbounds": ["🚀 Node Selection", "♻️ Auto Selection", "🔯 Hong Kong Auto", "🇭🇰 Hong Kong Node", "🇯🇵 Japan Node", "🇺🇸 US Node", "🎯 Global Direct"] },
@@ -91,6 +92,7 @@
       { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "🎯 Global Direct" },
       { "rule_set": ["geosite-private", "geoip-private"], "outbound": "🎯 Global Direct" },
       { "rule_set": "geosite-chat", "outbound": "🤖 OpenAI" },
+      { "rule_set": "geosite-meta", "outbound": "🤖 meta" },
       { "rule_set": "geosite-github", "outbound": "👨‍💻 GitHub" },
       { "rule_set": "geosite-youtube", "outbound": "📹 YouTube" },
       { "rule_set": "geosite-onedrive", "outbound": "🐬 OneDrive" },
@@ -101,7 +103,7 @@
       { "rule_set": ["geoip-netflix", "geosite-netflix"], "outbound": "🎥 Netflix" },
       { "rule_set": ["geoip-telegram", "geosite-telegram"], "outbound": "📲 Telegram" },
       { "rule_set": "geosite-geolocation-!cn", "outbound": "🚀 Node Selection" },
-      { "rule_set": ["geoip-cn", "geosite-cn"], "outbound": "🎯 Global Direct" }
+      { "rule_set": ["geoip-cn", "geosite-cn"], "outbound": "🎯 Global Direct" },
     ],
 
     "rule_set": [
@@ -118,7 +120,9 @@
       { "tag": "geosite-geolocation-!cn", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-cn", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-private", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/private.srs", "download_detour": "🎯 Global Direct" },
-
+      { "tag": "geosite-meta", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/meta.srs", "download_detour": "🎯 Global Direct" },
+      
+      
       { "tag": "geoip-google", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geoip-telegram", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geoip-netflix", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs", "download_detour": "🎯 Global Direct" },

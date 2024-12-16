@@ -96,7 +96,7 @@
       { "rule_set": "geosite-github", "outbound": "👨‍💻 GitHub" },
       { "rule_set": "geosite-meta", "outbound": "📹 Meta" },
       { "rule_set": "geosite-youtube", "outbound": "📹 YouTube" },
-      { "rule_set": "geosite-discord", "outbound": "📹 Discord" },
+      { "rule_set": ["geoip-discord", "geosite-discord"], "outbound": "📹 Discord" },
       { "rule_set": "geosite-onedrive", "outbound": "🐬 OneDrive" },
       { "rule_set": "geosite-microsoft", "outbound": "🪟 Microsoft" },
       { "rule_set": ["geoip-google", "geosite-google"], "outbound": "🍀 Google" },
@@ -126,6 +126,7 @@
       { "tag": "geosite-private", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/private.srs", "download_detour": "🎯 Global Direct" },
 
       { "tag": "geoip-google", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs", "download_detour": "🎯 Global Direct" },
+      { "tag": "geoip-discord", "type": "remote", "format": "binary", "url": "https://github.com/Mendex777/sbshell/raw/refs/heads/master/geoip/discord.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geoip-telegram", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geoip-netflix", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geoip-apple", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geoip/apple.srs", "download_detour": "🎯 Global Direct" },

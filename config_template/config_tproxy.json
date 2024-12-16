@@ -24,8 +24,8 @@
   "dns": {
     "servers": [
       {"tag": "proxyDns", "address": "https://dns.google/dns-query", "address_resolver": "defaultDns", "address_strategy": "ipv4_only", "detour": "🚀 Node Selection"},
-      {"tag": "localDns", "address": "https://common.dot.dns.yandex.net/dns-query", "address_resolver": "defaultDns", "address_strategy": "ipv4_only", "detour": "🎯 Global Direct"},
-      {"tag": "defaultDns", "address": "192.168.1.1", "address_strategy": "ipv4_only", "detour": "🎯 Global Direct"}
+      {"tag": "localDns", "address": "223.5.5.5", "address_resolver": "defaultDns", "address_strategy": "ipv4_only", "detour": "🎯 Global Direct"},
+      {"tag": "defaultDns", "address": "223.5.5.5", "address_strategy": "ipv4_only", "detour": "🎯 Global Direct"}
     ],
     "rules": [
       { "outbound": "any", "server": "defaultDns", "disable_cache": true },

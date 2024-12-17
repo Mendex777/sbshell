@@ -55,6 +55,7 @@
 
   "outbounds": [
     { "tag": "🚀 Node Selection", "type": "selector", "outbounds": ["🐸 Manual Switch", "🎯 Global Direct"] },
+    { "tag": "📃 Custom domains list", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
     { "tag": "📹 YouTube", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
     { "tag": "📹 Discord", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
     { "tag": "📹 Meta", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
@@ -79,7 +80,7 @@
     "rules": [
       { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "outbound": "dns-out" },
       { "clash_mode": "direct", "outbound": "🎯 Global Direct" },
-      { "domain": ["clash.razord.top", "yacd.metacubex.one", "yacd.haishan.me", "d.metacubex.one"], "outbound": "🎯 Global Direct" },
+      { "domain": ["intel.com", "2ip.io", "2ip.ru"], "outbound": "📃 Custom domains list" },
       { "rule_set": ["geosite-private", "geoip-private"], "outbound": "🎯 Global Direct" },
       { "rule_set": "geosite-chat", "outbound": "🤖 OpenAI" },
       { "rule_set": "geosite-github", "outbound": "👨‍💻 GitHub" },

@@ -80,7 +80,7 @@
     "rules": [
       { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "outbound": "dns-out" },
       { "clash_mode": "direct", "outbound": "🎯 Global Direct" },
-      { "domain": ["zn3vonk1wgpmvfrmg-inteldotcomvoc.siteintercept.qualtrics.com", "siteintercept.qualtrics.com", "cdn.cookielaw.org", "ainu.intel.com", "www.intel.com", "2ip.io", "2ip.ru"], "outbound": "📃 Custom domains list" },
+      { "rule_set": "geosite-intel", "outbound": "📃 Custom domains list" },
       { "rule_set": ["geosite-private", "geoip-private"], "outbound": "🎯 Global Direct" },
       { "rule_set": "geosite-chat", "outbound": "🤖 OpenAI" },
       { "rule_set": "geosite-github", "outbound": "👨‍💻 GitHub" },
@@ -98,6 +98,7 @@
 
     "rule_set": [
       { "tag": "geosite-chat", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-chat-!cn.srs", "download_detour": "🎯 Global Direct" },
+      { "tag": "geosite-intel", "type": "local", "format": "source", "path": "/home/tdcadmin/intel.json"},
       { "tag": "geosite-youtube", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-discord", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/discord.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-meta", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/meta.srs", "download_detour": "🎯 Global Direct" },

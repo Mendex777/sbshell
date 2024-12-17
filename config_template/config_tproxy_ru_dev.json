@@ -80,7 +80,7 @@
     "rules": [
       { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "outbound": "dns-out" },
       { "clash_mode": "direct", "outbound": "🎯 Global Direct" },
-      { "domain": ["cookielaw.org", "qualtrics.com", "intel.com", "2ip.io", "2ip.ru"], "outbound": "📃 Custom domains list" },
+      { "domain": ["zn3vonk1wgpmvfrmg-inteldotcomvoc.siteintercept.qualtrics.com", "siteintercept.qualtrics.com", "cdn.cookielaw.org", "ainu.intel.com", "www.intel.com", "2ip.io", "2ip.ru"], "outbound": "📃 Custom domains list" },
       { "rule_set": ["geosite-private", "geoip-private"], "outbound": "🎯 Global Direct" },
       { "rule_set": "geosite-chat", "outbound": "🤖 OpenAI" },
       { "rule_set": "geosite-github", "outbound": "👨‍💻 GitHub" },

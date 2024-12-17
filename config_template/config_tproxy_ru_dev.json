@@ -100,9 +100,7 @@
       { "rule_set": "geosite-tiktok", "outbound": "🎵 TikTok" },
       { "rule_set": ["geoip-apple", "geosite-apple"], "outbound": "🍏 Apple" },
       { "rule_set": ["geoip-netflix", "geosite-netflix"], "outbound": "🎥 Netflix" },
-      { "rule_set": ["geoip-telegram", "geosite-telegram"], "outbound": "📲 Telegram" },
-      { "rule_set": "geosite-geolocation-!cn", "outbound": "🚀 Node Selection" },
-      { "rule_set": ["geoip-cn", "geosite-cn"], "outbound": "🎯 Global Direct" }
+      { "rule_set": ["geoip-telegram", "geosite-telegram"], "outbound": "📲 Telegram" }
     ],
 
     "rule_set": [

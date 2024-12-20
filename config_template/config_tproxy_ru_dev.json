@@ -55,7 +55,6 @@
 
   "outbounds": [
     { "tag": "🚀 Node Selection", "type": "selector", "outbounds": ["🐸 Manual Switch", "🎯 Global Direct"] },
-    { "tag": "📃 Custom domains list", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
     { "tag": "📹 YouTube", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
     { "tag": "📹 Discord", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
     { "tag": "📹 Meta", "type": "selector", "outbounds": ["🚀 Node Selection", "🐸 Manual Switch", "🎯 Global Direct"] },
@@ -80,7 +79,6 @@
     "rules": [
       { "type": "logical", "mode": "or", "rules": [{ "port": 53 }, { "protocol": "dns" }], "outbound": "dns-out" },
       { "clash_mode": "direct", "outbound": "🎯 Global Direct" },
-      { "rule_set": "geosite-intel", "outbound": "📃 Custom domains list" },
       { "rule_set": ["geosite-private", "geoip-private"], "outbound": "🎯 Global Direct" },
       { "rule_set": "geosite-chat", "outbound": "🤖 OpenAI" },
       { "rule_set": "geosite-github", "outbound": "👨‍💻 GitHub" },
@@ -98,7 +96,6 @@
 
     "rule_set": [
       { "tag": "geosite-chat", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-chat-!cn.srs", "download_detour": "🎯 Global Direct" },
-      { "tag": "geosite-intel", "type": "local", "format": "source", "path": "/home/tdcadmin/intel.json"},
       { "tag": "geosite-youtube", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-discord", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/discord.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-meta", "type": "remote", "format": "binary", "url": "https://ghp.ci/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/meta.srs", "download_detour": "🎯 Global Direct" },

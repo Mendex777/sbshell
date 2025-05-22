@@ -100,7 +100,7 @@
     ],
 
     "rule_set": [
-      { "tag": "geosite-custom", "type": "local", "format": "json", "path": "/etc/sing-box/custom.json"},
+      { "tag": "geosite-custom", "type": "local", "format": "source", "path": "/etc/sing-box/custom.json"},
       { "tag": "geosite-chat", "type": "remote", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-chat-!cn.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-youtube", "type": "remote", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-discord", "type": "remote", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/discord.srs", "download_detour": "🎯 Global Direct" },

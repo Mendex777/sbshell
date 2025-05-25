@@ -29,7 +29,7 @@
     ],
     "rules": [
       { "outbound": "any", "server": "defaultDns", "disable_cache": true },
-      { "rule_set": ["geosite-chat", "geosite-github", "geosite-meta", "geosite-youtube", "geoip-discord", "geosite-onedrive", "geosite-microsoft", "geoip-google", "geosite-tiktok", "geoip-apple", "geoip-netflix", "geoip-telegram"], "server": "proxyDns" }
+      { "rule_set": ["geosite-custom","geosite-chat", "geosite-github", "geosite-meta", "geosite-youtube", "geoip-discord", "geosite-onedrive", "geosite-microsoft", "geoip-google", "geosite-tiktok", "geoip-apple", "geoip-netflix", "geoip-telegram"], "server": "proxyDns" }
     ],
     "final": "defaultDns",
     "strategy": "ipv4_only"
@@ -100,7 +100,7 @@
     ],
 
     "rule_set": [
-      { "tag": "geosite-custom", "type": "local", "format": "source", "path": "/etc/sing-box/custom.json"},
+      { "tag": "geosite-custom", "type": "local", "format": "source", "path": "/etc/sing-box/rules/custom.json"},
       { "tag": "geosite-chat", "type": "remote", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-chat-!cn.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-youtube", "type": "remote", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs", "download_detour": "🎯 Global Direct" },
       { "tag": "geosite-discord", "type": "remote", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/discord.srs", "download_detour": "🎯 Global Direct" },
